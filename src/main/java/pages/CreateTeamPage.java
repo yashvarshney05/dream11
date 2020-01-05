@@ -5,8 +5,13 @@ import net.serenitybdd.core.annotations.findby.By;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 import org.openqa.selenium.ElementClickInterceptedException;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.StaleElementReferenceException;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 
+import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.util.List;
 
 public class CreateTeamPage extends BasePageObject {
@@ -62,16 +67,10 @@ public class CreateTeamPage extends BasePageObject {
         return String.format(locator, value);
     }
 
-    public void addWicketKeeper() {
+    public void addWicketKeeper(int playerCount) {
         points.click();
         points.click();
-        for (int i = 0; i < 2; i++) {
-
-            String finalXpath = getFormattedLocator(wicketKeeper, String.valueOf(i));
-            System.out.println("finalXpath from wicket" + finalXpath);
-            getDriver().findElement(By.xpath(finalXpath)).click();
-
-        }
+        addPlayers(playerCount);
 
     }
 
@@ -82,49 +81,29 @@ public class CreateTeamPage extends BasePageObject {
         }
         return false;
     }
-
-    public void addBatsMan() {
-        int batsManCount = 0, count = 0;
-        while (batsManCount < 4) {
-            try {
-                String finalXpath = getFormattedLocator(wicketKeeper, String.valueOf(batsManCount));
-                System.out.println("finalXpath==" + finalXpath);
-                getDriver().findElement(By.xpath(finalXpath)).click();
-                ++batsManCount;
-                if (batsManCount == 3)
-                    break;
-            } catch (ElementClickInterceptedException | StaleElementReferenceException se) {
-                scrollToTopOfPage();
-                System.out.println("inside catch block" + count);
-                continue;
-            }
-        }
-
-
+    public void clickOnBatsManlbl()
+    {
+        batsManLabel.click();
     }
-
-    public void addAllRounders() {
+    public void addBatsMan(int playerCount) {
+        addPlayers(playerCount);
+    }
+    public void clickOnARLbl()
+    {
         allRounderLbl.click();
-        for (int i = 0; i < 3; i++) {
-
-            String finalXpath = getFormattedLocator(wicketKeeper, String.valueOf(i));
-            System.out.println("finalXpath from all rounders" + finalXpath);
-            getDriver().findElement(By.xpath(finalXpath)).click();
-
-        }
+    }
+    public void addAllRounders(int playerCount) {
+        addPlayers(playerCount);
     }
 
-    public void addBowlers()
+    public void clickOnBowLbl()
     {
         bowlerLbl.click();
-        for (int i = 0; i < 3; i++) {
-
-            String finalXpath = getFormattedLocator(wicketKeeper, String.valueOf(i));
-            System.out.println("finalXpath from bowler" + finalXpath);
-            getDriver().findElement(By.xpath(finalXpath)).click();
-
-        }
     }
+    public void addBowlers(int playerCount) {
+        addPlayers(playerCount);
+            }
+
 
     public void clickOnContinue()
     {
@@ -139,9 +118,37 @@ public class CreateTeamPage extends BasePageObject {
          viceCaption.click();
      }
 
-     public void saveTeamBtn()
+
+     public void addPlayers(int playerCount)
      {
-         saveTeamBtn.click();
+         int count = 0, enable_count = 0;
+          boolean result=false;
+         do {
+             try {
+                 String finalXpath = getFormattedLocator(wicketKeeper, String.valueOf(count));
+                 System.out.println("finalXpath from bowlers" + finalXpath);
+                 WebElement webElement=getDriver().findElement(By.xpath(finalXpath));
+                  result=true;
+                 if (result==true&& webElement.isDisplayed() && webElement.isEnabled()) {
+                     System.out.println("inside this..");
+                     Actions action = new Actions(getDriver());
+                     action.moveToElement(webElement).click().perform();
+                     ++enable_count;
+                     ++count;
+                     System.out.println("enable_count=="+enable_count);
+                     continue;
+                 }
+             }catch (NoSuchElementException nse) {
+                 ++count;
+                 scrollingToBottomofAPage();
+                continue;
+                 }
+             catch (StaleElementReferenceException sle)
+             {
+                 System.out.println("inside this..stale");
+                 continue;
+             }
+         } while (enable_count != playerCount) ;
      }
 
 }

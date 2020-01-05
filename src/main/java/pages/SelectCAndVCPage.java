@@ -25,6 +25,7 @@ public class SelectCAndVCPage extends BasePageObject {
 
     public void selectCaption()
     {
+        scrollToTopOfPage();
         caption.click();
     }
     public void selectViceCaption()

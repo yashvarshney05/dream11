@@ -17,9 +17,9 @@ public class CreateTeamSteps extends ScenarioSteps {
 
     }
     @Step("Add a wicket keeper")
-    public void add_wicket_keeper()
+    public void add_wicket_keeper(int playerCount)
     {
-        createTeamPageObj.addWicketKeeper();
+        createTeamPageObj.addWicketKeeper(playerCount);
     }
     @Step("click on batsman tab")
     public void click_on_batsman_lbl()
@@ -27,19 +27,29 @@ public class CreateTeamSteps extends ScenarioSteps {
         assertThat(createTeamPageObj.clickONBatsLabel()).overridingErrorMessage("batsman label disabled").isTrue();
     }
     @Step("add 3 batsman")
-    public void add_four_batsMan()
+    public void add_four_batsMan(int playerCount)
     {
-        createTeamPageObj.addBatsMan();
+        createTeamPageObj.addBatsMan(playerCount);
+    }
+    @Step("click on all rounder label")
+    public void click_on_all_round_label()
+    {
+        createTeamPageObj.clickOnARLbl();
     }
     @Step("add 3 all rounder")
-    public void add_all_rounders()
+    public void add_all_rounders(int playerCount)
     {
-        createTeamPageObj.addAllRounders();
+        createTeamPageObj.addAllRounders(playerCount);
+    }
+    @Step("click on bowler label")
+    public void click_on_bowler_lbl()
+    {
+        createTeamPageObj.clickOnBowLbl();
     }
     @Step("add 3 bowlers")
-    public void add_bowlers()
+    public void add_bowlers(int playerCount)
     {
-        createTeamPageObj.addBowlers();
+        createTeamPageObj.addBowlers(playerCount);
     }
     @Step("Click on continue button")
     public void click_on_continue_button()
