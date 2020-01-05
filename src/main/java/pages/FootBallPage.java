@@ -3,6 +3,9 @@ import core.BasePageObject;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 import org.openqa.selenium.WebElement;
+import utils.CommonUtils;
+
+import java.util.concurrent.TimeUnit;
 
 public class FootBallPage extends BasePageObject {
     @FindBy(xpath = "//div[contains(text(),'football')]")
@@ -26,15 +29,18 @@ public class FootBallPage extends BasePageObject {
 
     public void clickOnDef()
     {
+        if(defLbl.isDisplayed())
         defLbl.click();
     }
     public void clickOnMid()
     {
+        if(midLbl.isDisplayed())
         midLbl.click();
     }
     public void clickOnSt()
     {
-        stLbl.click();
+         if(stLbl.isDisplayed())
+         stLbl.click();
     }
 
 }

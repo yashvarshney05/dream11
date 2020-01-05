@@ -55,14 +55,4 @@ public class BasePageObject extends PageObject {
         }
         return false;
     }
-    public void switchToFrame()
-    {
-        getDriver().switchTo().frame(0);
-    }
-
-    public void switchToFrame(WebElementFacade frameName)
-    {
-        getDriver().switchTo().frame(frameName);
-    }
-
 }

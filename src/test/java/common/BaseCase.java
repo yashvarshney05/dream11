@@ -33,10 +33,8 @@ public class BaseCase
     @Managed(uniqueSession = true)
     protected WebDriver driver;
 
-    @ManagedPages(defaultUrl = "https://demo.midtrans.com/")
+    @ManagedPages(defaultUrl = "https://www.dream11.com/leagues")
     protected Pages pages;
-
-
 
     @Before
     public void initializationBeforeTest()
@@ -53,10 +51,6 @@ public class BaseCase
         String testName = StepEventBus.getEventBus().getBaseStepListener().getTestOutcomes().get(0).getName();
         logger.info("Starting test : {}", testName);
 
-
-
-
-        // Set timeouts
         driver.manage().timeouts().implicitlyWait(CommonUtils.getImplicitTimeoutInSecs(), TimeUnit.SECONDS);
         driver.manage().timeouts().pageLoadTimeout(CommonUtils.getExplicitTimeoutInSecs(), TimeUnit.SECONDS);
         driver.manage().timeouts().setScriptTimeout(CommonUtils.getExplicitTimeoutInSecs(), TimeUnit.SECONDS);
