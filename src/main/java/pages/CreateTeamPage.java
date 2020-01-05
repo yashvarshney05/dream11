@@ -4,7 +4,6 @@ import core.BasePageObject;
 import net.serenitybdd.core.annotations.findby.By;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
-import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
@@ -42,7 +41,7 @@ public class CreateTeamPage extends BasePageObject {
     private WebElementFacade continueBtn;
 
     @FindBy(xpath = "(//div[@class='roleIcon_b2caf'])[1]")
-     private WebElementFacade caption;
+    private WebElementFacade caption;
 
     @FindBy(xpath = "(//div[@class='roleIcon_b2caf'])[3]")
     private WebElementFacade viceCaption;
@@ -81,74 +80,74 @@ public class CreateTeamPage extends BasePageObject {
         }
         return false;
     }
-    public void clickOnBatsManlbl()
-    {
+
+    public void clickOnBatsManlbl() {
         batsManLabel.click();
     }
+
     public void addBatsMan(int playerCount) {
         addPlayers(playerCount);
     }
-    public void clickOnARLbl()
-    {
+
+    public void clickOnARLbl() {
         allRounderLbl.click();
     }
+
     public void addAllRounders(int playerCount) {
         addPlayers(playerCount);
     }
 
-    public void clickOnBowLbl()
-    {
+    public void clickOnBowLbl() {
         bowlerLbl.click();
     }
+
     public void addBowlers(int playerCount) {
         addPlayers(playerCount);
-            }
+    }
 
-
-    public void clickOnContinue()
-    {
+    public void clickOnContinue() {
         continueBtn.click();
     }
-     public void selectCaption()
-     {
-         caption.click();
-     }
-     public void selectViceCaption()
-     {
-         viceCaption.click();
-     }
+
+    public void selectCaption() {
+        caption.click();
+    }
+
+    public void selectViceCaption() {
+        viceCaption.click();
+    }
 
 
-     public void addPlayers(int playerCount)
-     {
-         int count = 0, enable_count = 0;
-          boolean result=false;
-         do {
-             try {
-                 String finalXpath = getFormattedLocator(wicketKeeper, String.valueOf(count));
-                 System.out.println("finalXpath from bowlers" + finalXpath);
-                 WebElement webElement=getDriver().findElement(By.xpath(finalXpath));
-                  result=true;
-                 if (result==true&& webElement.isDisplayed() && webElement.isEnabled()) {
-                     System.out.println("inside this..");
-                     Actions action = new Actions(getDriver());
-                     action.moveToElement(webElement).click().perform();
-                     ++enable_count;
-                     ++count;
-                     System.out.println("enable_count=="+enable_count);
-                     continue;
-                 }
-             }catch (NoSuchElementException nse) {
-                 ++count;
-                 scrollingToBottomofAPage();
+    public void addPlayers(int playerCount) {
+        scrollToTopOfPage();
+        int count = 0, enable_count = 0;
+        boolean result = false;
+        do {
+            try {
+                String finalXpath = getFormattedLocator(wicketKeeper, String.valueOf(count));
+                System.out.println("finalXpath from bowlers" + finalXpath);
+                WebElement webElement = getDriver().findElement(By.xpath(finalXpath));
+                result = true;
+                if (result == true && webElement.isDisplayed() && webElement.isEnabled()) {
+                    System.out.println("inside this..");
+                    Actions action = new Actions(getDriver());
+                    action.moveToElement(webElement).click().perform();
+                    ++enable_count;
+                    ++count;
+                    if(enable_count>=3)
+                        scrollingToBottomofAPage();
+                    System.out.println("enable_count==" + enable_count);
+                    continue;
+                }
+            } catch (NoSuchElementException nse) {
+                ++count;
+                scrollingToBottomofAPage();
                 continue;
-                 }
-             catch (StaleElementReferenceException sle)
-             {
-                 System.out.println("inside this..stale");
-                 continue;
-             }
-         } while (enable_count != playerCount) ;
-     }
+            } catch (StaleElementReferenceException sle) {
+                System.out.println("inside this..stale");
+                continue;
+            }
+        } while (enable_count != playerCount);
+    }
 
 }
