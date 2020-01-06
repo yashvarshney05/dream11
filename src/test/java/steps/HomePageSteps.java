@@ -8,8 +8,6 @@ public class HomePageSteps extends ScenarioSteps {
 
     private BasePageObject basePageObj;
 
-
-
     @Step("Open home page")
     public void open_home_page(String url)
     {

@@ -20,31 +20,25 @@ public class CricketPage extends BasePageObject {
 
     public boolean printLeftTeamName()
     {
-        String leftTeamName=teamOnLeft.getText();
-        if(leftTeamName==null || leftTeamName.isEmpty())
-            return false;
-        else
-            System.out.println("Left team name=="+leftTeamName);
-            return true;
+        if(getName(teamOnLeft).equalsIgnoreCase("invalid"))
+            return  false;
+        System.out.println(getName(teamOnLeft));
+        return true;
     }
 
     public boolean printTimeLeft()
     {
-        String timeDisplayed=timeLeft.getText();
-        if(null==timeDisplayed || timeDisplayed.isEmpty())
-            return false;
-        else
-            System.out.println("time displayed =="+timeDisplayed);
+        if(getName(timeLeft).equalsIgnoreCase("invalid"))
+            return  false;
+        System.out.println(getName(timeLeft));
         return true;
     }
 
     public boolean printRightTeam()
     {
-        String rightTeamName=teamOnRight.getText();
-        if(null==rightTeamName|| rightTeamName.isEmpty())
-            return false;
-        else
-            System.out.println("rightTeamName=="+rightTeamName);
+        if(getName(teamOnRight).equalsIgnoreCase("invalid"))
+            return  false;
+        System.out.println(getName(teamOnRight));
         return true;
     }
 
@@ -55,6 +49,14 @@ public class CricketPage extends BasePageObject {
             return true;
         }
         return false;
+    }
+
+    public String getName(WebElementFacade webElementFacade)
+    {
+        String text=webElementFacade.getText();
+        if(text==null || text.isEmpty())
+            return "invalid";
+        return text;
     }
 
 }

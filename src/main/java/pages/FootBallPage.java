@@ -42,5 +42,4 @@ public class FootBallPage extends BasePageObject {
          if(stLbl.isDisplayed())
          stLbl.click();
     }
-
 }
